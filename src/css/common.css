@@ -37,6 +37,10 @@ img {
 
 .value {
   font-size: 34px;
+  background-color: #4349fd;
+  border-radius: 10px;
+  width: 55px;
+  text-align: center;
 }
 
 .label {

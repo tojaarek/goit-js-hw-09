@@ -12,6 +12,23 @@ const buttonStart = document.querySelector('[data-start]');
 const buttonStop = document.querySelector('[data-stop]');
 const buttonReset = document.querySelector('[data-reset]');
 
+buttonStop.addEventListener('click', () => {
+  clearInterval(interval);
+  isCounting = false;
+  interval = null;
+  buttonReset.disabled = false;
+  buttonStop.disabled = true;
+});
+
+buttonReset.addEventListener('click', () => {
+  Notiflix.Notify.info('Choose the date once again to restart the counter');
+  buttonReset.disabled = true;
+  daySpan.innerHTML = '00';
+  hourSpan.innerHTML = '00';
+  minuteSpan.innerHTML = '00';
+  secondSpan.innerHTML = '00';
+});
+
 const options = {
   enableTime: true,
   time_24hr: true,
@@ -29,12 +46,18 @@ const options = {
         isCounting = true;
         buttonStart.disabled = false;
         buttonStart.addEventListener('click', () => {
+          clearInterval(interval);
           buttonStart.disabled = true;
           buttonStop.disabled = false;
           interval = setInterval(() => {
             let ms = date.getTime() - new Date().getTime();
             if (ms < 0) {
               clearInterval(interval);
+              buttonStop.disabled = true;
+              buttonStart.disabled = false;
+              isCounting = false;
+              interval = null;
+              Notiflix.Notify.success('Countdown is over');
               return;
             }
             console.log(ms);
@@ -61,18 +84,3 @@ const options = {
 
 const picker = document.querySelector('#datetime-picker');
 const flatpicker = flatpickr(picker, options);
-
-buttonStop.addEventListener('click', () => {
-  clearInterval(interval);
-  buttonReset.disabled = false;
-  buttonStop.disabled = true;
-});
-
-buttonReset.addEventListener('click', () => {
-  Notiflix.Notify.info('Choose the date once again to restart the counter');
-  buttonReset.disabled = true;
-  daySpan.innerHTML = '00';
-  hourSpan.innerHTML = '00';
-  minuteSpan.innerHTML = '00';
-  secondSpan.innerHTML = '00';
-});
