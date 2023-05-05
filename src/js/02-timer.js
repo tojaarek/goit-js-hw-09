@@ -35,7 +35,6 @@ const options = {
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    console.log(selectedDates[0]);
     const date = selectedDates[0];
     const today = new Date();
     if (date < today) {
@@ -60,7 +59,6 @@ const options = {
               Notiflix.Notify.success('Countdown is over');
               return;
             }
-            console.log(ms);
             const second = 1000;
             const minute = second * 60;
             const hour = minute * 60;
