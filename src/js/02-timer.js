@@ -1,3 +1,4 @@
+'use strict';
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 import Notiflix from 'notiflix';
@@ -51,12 +52,12 @@ const options = {
           interval = setInterval(() => {
             let ms = date.getTime() - new Date().getTime();
             if (ms < 0) {
+              Notiflix.Notify.success('Countdown is over');
               clearInterval(interval);
               buttonStop.disabled = true;
               buttonStart.disabled = false;
               isCounting = false;
               interval = null;
-              Notiflix.Notify.success('Countdown is over');
               return;
             }
             const second = 1000;
